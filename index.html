@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uma surpresa pra você 💗</title>
+<style>
+.titlebar {
+  cursor: move;
+  user-select: none;
+  touch-action: none;
+}
+.side-window .titlebar {
+  font-size: 12px;
+  padding: 5px 6px;
+}
+.desktop {
+  position: relative;
+}
+.side-window {
+  position: absolute;
+  width: 190px;
+  max-width: 190px;
+  margin: 0;
+  z-index: 2;
+}
+
+.side-window .content {
+  padding: 7px;
+  width: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.side-window img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;
+  box-sizing: border-box;
+}
+
+.side-left {
+  left: 15px;
+  top: 25px;
+  width: 240px;
+  max-width: 240px;
+}
+.side-right {
+  right: 15px;
+  top: 45px;
+}
+@media (min-width: 1100px) {
+  .desktop {
+    padding-left: 220px;
+    padding-right: 220px;
+  }
+
+  .side-left {
+    left: 15px;
+    top: 25px;
+  }
+
+  .side-right {
+    right: 15px;
+    top: 25px;
+  }
+
+  .side-right-2 {
+    right: 15px;
+    top: 330px;
+  }
+
+  .side-right-3 {
+    right: 15px;
+    top: 635px;
+  }
+
+  .side-right-2 img,
+  .side-right-3 img {
+    max-height: 210px;
+    object-fit: contain;
+  }
+}
+.music-window { position: relative; z-index: 3; }
+.side-window { position: absolute; }
+@media (max-width: 1099px) {
+  .side-window { position: relative; left: auto; right: auto; top: auto; margin: 12px auto; }
+}
+:root{--pink:#ffc5df;--hot:#e65b9c;--cream:#fff8fc;--ink:#3c2940;--border:#8d7c91}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:#f7d9e8;color:var(--ink);font-family:Tahoma,Verdana,sans-serif;overflow-x:hidden}
+.desktop {
+  min-height: 100vh;
+  padding: 24px 14px 60px;
+  background-image: url("imagens/fundo.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.window{width:min(620px,100%);margin:20px auto;background:#f7f3f8;border:2px solid white;box-shadow:3px 3px 0 #8f7c92,7px 7px 0 #b79caf}
+.titlebar{padding:8px 10px;background:linear-gradient(90deg,#8e5da8,#d86da5);color:white;font-weight:bold;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.titlebar .buttons{letter-spacing:5px;white-space:nowrap}
+.content{padding:22px;text-align:center}
+h1{font-size:clamp(22px,5vw,32px);margin:5px 0 12px}
+p{line-height:1.65}
+button,.file-label{font:inherit;border:2px solid white;border-right-color:#8d7c91;border-bottom-color:#8d7c91;background:#f5eaf4;padding:9px 15px;color:var(--ink);cursor:pointer}
+button:active{border:2px solid #8d7c91;border-right-color:white;border-bottom-color:white}
+button:hover,.file-label:hover{background:#ffe3f0}
+.hidden{display:none!important}
+.tiny{font-size:12px;color:#765f79}
+.player{margin:18px 0;padding:15px;background:#fff9fd;border:1px solid #d9bfd3;text-align:left}
+input[type=file]{max-width:100%}
+.progress{height:12px;background:#eadce9;border:1px solid #c8b3c8;margin-top:12px;overflow:hidden}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#a66ac3,#ee79ac)}
+#currentLine{font-size:clamp(18px,4vw,24px);min-height:64px;display:grid;place-items:center;padding:12px 0;font-weight:bold;color:#9c4b85}
+#lyricsList{max-height:190px;overflow:auto;text-align:left;font-size:14px}
+.lyric-row{padding:5px 8px;border-radius:5px}
+.lyric-row.active{background:#ffe0ef;color:#7f306c;font-weight:bold}
+.popup{position:fixed;z-index:5;width:min(340px,calc(100vw - 28px));background:#f8f5f8;border:2px solid white;box-shadow:3px 3px 0 #8d7c91;left:50%;top:50%;transform:translate(-50%,-50%);padding-bottom:16px}
+.popup .content{padding:18px}
+.popup .emoji{font-size:28px}
+.popup p{margin:12px 0 18px}
+.overlay{position:fixed;inset:0;background:#3c294055;z-index:4}
+#toast{font-size:13px;color:#775c7a;margin-top:10px}
+footer{text-align:center;font-size:12px;color:#765f79;margin-top:28px}
+textarea{width:100%;min-height:85px;font:inherit;padding:8px;border:1px solid #c8b3c8}
+
+/* JANELA DO DINOSSAURO */
+.dino-window {
+  position: relative;
+  width: min(560px, 100%);
+  max-width: 100%;
+  left: auto;
+  right: auto;
+  top: auto;
+  margin: 24px auto;
+  transform: none;
+  z-index: 3;
+}
+
+.dino-content {
+  padding: 12px;
+  text-align: center;
+  background: #fff8fc;
+  color: #633c56;
+  font-family: "Courier New", monospace;
+}
+
+.dino-message {
+  font-weight: bold;
+  margin: 4px 0 12px;
+}
+
+.dino-game {
+  height: 180px;
+  position: relative;
+  overflow: hidden;
+  background: #e9f6ff;
+  border: 2px inset #c6b4d4;
+  cursor: pointer;
+  outline: none;
+}
+
+.dino-score {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 12px;
+  z-index: 3;
+}
+
+.dino-character {
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  left: 35px;
+  bottom: 20px;
+  z-index: 2;
+}
+
+.dino-obstacle {
+  position: absolute;
+  left: 100%;
+  bottom: 18px;
+  font-size: 28px;
+  line-height: 1;
+  white-space: nowrap;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.dino-ground {
+  position: absolute;
+  height: 3px;
+  bottom: 17px;
+  left: 0;
+  width: 100%;
+  background: #7c9d72;
+}
+
+.dino-game-over {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: #fff8f0e8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.dino-game-over[hidden] {
+  display: none;
+}
+
+.dino-game-over p {
+  font-weight: bold;
+}
+
+.dino-content button {
+  margin-top: 10px;
+  padding: 7px 12px;
+  cursor: pointer;
+  font-family: inherit;
+  background: #f7d8eb;
+  border: 2px outset #fff;
+  color: #633c56;
+}
+
+.dino-help {
+  font-size: 11px;
+  margin-bottom: 0;
+}
+
+
+@media (max-width: 600px) {
+  #meuClippy {
+    right: 8px;
+    bottom: 8px;
+    width: 95px;
+  }
+
+  #meuClippy img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+#meuClippy {
+  position: fixed;
+  left: auto;
+  right: 25px;
+  top: auto;
+  bottom: 20px;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  z-index: 99999;
+  user-select: none;
+}
+
+#imagemClippy {
+  display: block;
+  width: 115px;
+  height: 115px;
+  object-fit: contain;
+  cursor: grab;
+  -webkit-user-drag: none;
+  filter: drop-shadow(2px 3px 2px #777);
+  touch-action: none;
+}
+
+#imagemClippy:active {
+  cursor: grabbing;
+}
+
+.balao-clippy {
+  position: relative;
+  width: 175px;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  padding: 12px;
+  background: #fffef0;
+  border: 1px solid #777;
+  border-radius: 12px;
+  box-shadow: 2px 3px 7px #0005;
+  color: #222;
+  font-family: Tahoma, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: left;
+}
+
+/* A pontinha do balão */
+.balao-clippy::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 16px;
+  height: 16px;
+  background: #fffef0;
+  border-right: 1px solid #777;
+  border-bottom: 1px solid #777;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+@media (max-width: 600px) {
+  #meuClippy {
+    width: 120px;
+  }
+
+  #imagemClippy {
+    width: 90px;
+    height: 90px;
+  }
+
+  .balao-clippy {
+    width: 145px;
+    font-size: 11px;
+  }
+}
+
+
+
+/* JOGUINHOS NOVOS */
+.mini-game-content { padding:14px; text-align:center; background:#fff8fc; color:#633c56; font-family:"Courier New",monospace; }
+.mini-game-content p { margin:8px 0; }
+.game-score { font-weight:bold; color:#9c4b85; margin:10px 0; }
+.mole-board { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; max-width:330px; margin:14px auto; }
+.mole-hole { min-width:0; aspect-ratio:1; padding:5px; display:flex; align-items:center; justify-content:center; background:#ead9ee; border:3px inset #c6b4d4; border-radius:50%; touch-action:manipulation; overflow:hidden; }
+.mole-hole img { width:100%; height:100%; max-width:76px; max-height:76px; object-fit:cover; border-radius:10px; pointer-events:none; }
+.mole-hole:hover { background:#ffe3f0; }
+.heart-game { position:relative; height:280px; max-width:380px; margin:12px auto; overflow:hidden; background:linear-gradient(#e9f5ff,#fff0f8); border:2px inset #c6b4d4; touch-action:none; user-select:none; }
+.heart-falling {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+.heart-basket { position:absolute; bottom:7px; left:50%; transform:translateX(-50%); font-size:38px; line-height:1; z-index:2; pointer-events:none; }
+.heart-game-over { position:absolute; inset:0; background:#fff8f0ed; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; z-index:3; }
+.heart-game-over[hidden] { display:none; }
+.heart-controls { display:flex; justify-content:center; gap:12px; }
+.heart-controls button { min-width:65px; font-size:20px; }
+.game-help { font-size:12px; color:#765f79; }
+
+</style>
+</head>
+<body>
+<div class="desktop">
+  <section class="window side-window side-left">
+  <div class="titlebar">
+    <span>cam 24 horas.exe</span>
+    <span>×</span>
+  </div>
+
+  <div class="content">
+    <img id="leftWindowPhoto" src="imagens/foto1.gif" alt="Uma lembrança">
+    <p id="leftWindowCaption">oiá o bicho fazendo coisinhas para o amor da vida dele, ó</p>
+    <button id="updateLeftPhoto" type="button">Atualizar</button>
+  </div>
+</section>
+<section class="window side-window side-right">
+  <div class="titlebar">
+    <span>Teu abestado safado.exe</span>
+    <span>×</span>
+  </div>
+
+  <div class="content">
+    <img src="imagens/foto2.jpg" alt="Outra lembrança">
+  </div>
+</section>
+<section class="window side-window side-right side-right-2">
+  <div class="titlebar">
+    <span>mais um registro.exe</span>
+    <span>×</span>
+  </div>
+  <div class="content">
+    <img src="imagens/foto3.jpg" alt="Mais uma foto minha">
+    <p class="tiny">a cara do filha da puta que quase perdeu o onibus no primeiro encontroKKKKK</p>
+  </div>
+</section>
+<section class="window side-window side-right side-right-3">
+  <div class="titlebar">
+    <span>mininu lindo, ó.exe</span>
+    <span>×</span>
+  </div>
+  <div class="content">
+    <img src="imagens/imagem4.jpg" alt="Outra foto minha">
+    <p class="tiny">Só seu, meu amor</p>
+  </div>
+</section>
+  <main class="window">
+    <div class="titlebar"><span>💌 mensagem.exe</span><span class="buttons">_ □ ×</span></div>
+    <div class="content">
+      <div style="font-size:40px">💗 ✧ 💗</div>
+      <h1>Fiz uma coisinha pra você</h1>
+      <p>Oi, amoooor. Preparei esse cantinho pensando em você.<br>Vai abrindo as janelinhas, tá? Cada uma tem um pedacinho meu, ó.</p>
+      <button id="startBtn">Abrir minha surpresa ♡</button>
+      <p class="tiny">feito com carinho, especialmente pra você</p>
+    </div>
+  </main>
+
+ 
+
+  <section class="window music-window">
+    <div class="titlebar"><span>♫ music_player.exe</span><span class="buttons">_ □ ×</span></div>
+    <div class="content">
+      <h2>Algumas músicas que eu queria dedicar para vc, minha flor 💗</h2>
+      <select id="songSelect">
+        <option value="0">Almas Gêmeas</option>
+        <option value="1">Luz do Luar</option>
+        <option value="2">Garota do vestido branco</option>
+        <option value="3">Eu quero te impressionar</option>
+      </select>
+      <audio id="audio" controls preload="metadata" style="width:100%; margin-top:12px">
+        Seu navegador não conseguiu carregar o áudio.
+      </audio>
+      <p id="audioError" class="tiny" role="status"></p>
+      <p>♪ Feito com amor, especialmente pra você 💗</p>
+    </div>
+  </section>
+
+  <section class="window">
+    <div class="titlebar"><span>💬 recadinhos.exe</span><span class="buttons">_ □ ×</span></div>
+    <div class="content">
+      <h2 style="margin-top:0">Uns recadinhos pra você</h2>
+      <p>Também dá pra abrir as mensagens daqui:</p>
+      <button class="noteBtn" data-note="Você é todos os meus dias, meu amor. Você quem me faz ser uma pessoa com tanta determinaçao e felicidade só de pensar toda manhã que eu tenho você cmg. É estranho pensar que, em meio a tanta coisa nesse mundo enorme, eu tive a sorte de encontrar justamente você. Se eu pudesse escolher mil vezes, em mil vidas diferentes, ainda procuraria por você em todas elas">Recadinho 1</button>
+      <button class="noteBtn" data-note="Eu queria que você pudesse se enxergar pelos meus olhos por apenas um instante, meu anjo. Talvez assim entendesse por que eu te admiro tanto, por que sua existência me encanta e por que, mesmo nos dias mais comuns, você consegue fazer meu mundo parecer extraordinário. Você é poesia que eu quero ler todos os dias">Recadinho 2</button>
+      <button class="noteBtn" data-note="Se um dia me perguntarem o que eu faria diante da eternidade, eu diria que gostaria de passar ela toda com você. Não preciso que o tempo pare, nem que o mundo inteiro nos pertença. Só quero continuar encontrando você nos meus dias, amando cada detalhe seu e descobrindo, pouco a pouco, que ainda existe muito mais em você para amar">Recadinho 3</button>
+    </div>
+  </section>
+
+  <section class="window">
+    <div class="titlebar"><span>🔐 segredo.exe</span><span class="buttons">_ □ ×</span></div>
+    <div class="content">
+      <h2 style="margin-top:0">Tem mais uma coisinha…</h2>
+      <p>Existe uma última janelinha escondida no fim desse caminho.</p>
+      <button id="secretBtn">Abrir a caixinha misteriosa ✨</button>
+    </div>
+  </section>
+  <!-- JOGO DO DINOSSAURO -->
+  <section class="window dino-window">
+    <div class="titlebar">
+      <span>🦖 Dino Game.exe</span>
+      <span>♥</span>
+    </div>
+  
+    <div class="dino-content">
+      <p class="dino-message">Corre, Ailsonssauro!</p>
+  
+      <div class="dino-game" id="dinoGame" tabindex="0">
+        <div class="dino-score" id="dinoScore">Pontos: 0</div>
+  
+        <img
+          src="imagens/dinossauro.png"
+          alt="Meu dinossauro"
+          class="dino-character"
+          id="dinoCharacter"
+        >
+  
+        <div class="dino-obstacle" id="dinoObstacle">🌵</div>
+        <div class="dino-ground"></div>
+  
+        <div class="dino-game-over" id="dinoGameOver" hidden>
+          <p>Porra, tu matou o mano Ailsonssauro 💔</p>
+          <button id="dinoRestart">Jogar de novo ♥</button>
+        </div>
+      </div>
+  
+      <button id="dinoStart">Começar jogo ♥</button>
+      <p class="dino-help">Use ESPAÇO, ↑ ou clique no jogo para pular!</p>
+    </div>
+  </section>
+
+
+  <!-- JOGO: ACERTE O ABESTADO -->
+  <section class="window">
+    <div class="titlebar"><span>🎯 Acerte o Abestado.exe</span><span class="buttons">_ □ ×</span></div>
+    <div class="mini-game-content">
+      <h2>PEGA ELE KKKKK</h2>
+      <p>Ele rodou Doom no totem de todas as lojas sem a suas autorização... BATE NELE!</p>
+      <p class="game-score" id="moleScore">Pontos: 0</p>
+      <p id="moleTime">Tempo: 20 segundos</p>
+      <div class="mole-board" id="moleBoard">
+        <button class="mole-hole" type="button">🕳️</button><button class="mole-hole" type="button">🕳️</button><button class="mole-hole" type="button">🕳️</button>
+        <button class="mole-hole" type="button">🕳️</button><button class="mole-hole" type="button">🕳️</button><button class="mole-hole" type="button">🕳️</button>
+        <button class="mole-hole" type="button">🕳️</button><button class="mole-hole" type="button">🕳️</button><button class="mole-hole" type="button">🕳️</button>
+      </div>
+      <p id="moleMessage" aria-live="polite">Clica em começar pra jogar!</p>
+      <button id="moleStart" type="button">Começar ♥</button>
+    </div>
+  </section>
+
+  <!-- JOGO: CHUVA DE CORAÇÕES -->
+  <section class="window">
+    <div class="titlebar"><span>💗 Chuva de Amorzinhos.exe</span><span class="buttons">_ □ ×</span></div>
+    <div class="mini-game-content">
+      <h2>ME PEGAAA!</h2>
+      <p>Move a cestinha e pega todos os Ailsons que conseguir.</p>
+      <p class="game-score" id="heartScore">Ailsus: 0</p>
+      <p id="heartTime">Tempo: 30 segundos</p>
+      <div class="heart-game" id="heartGame">
+        <div class="heart-basket" id="heartBasket">🧺</div>
+        <div class="heart-game-over" id="heartGameOver" hidden>
+          <strong>FIM DE JOGO! 💗</strong><p id="heartFinal"></p>
+          <button id="heartRestart" type="button">Jogar de novo ♥</button>
+        </div>
+      </div>
+      <div class="heart-controls"><button id="heartLeft" type="button" aria-label="Mover para esquerda">⬅️</button><button id="heartRight" type="button" aria-label="Mover para direita">➡️</button></div>
+      <button id="heartStart" type="button">Começar ♥</button>
+      <p class="game-help">Use as setas do teclado, os botões ou arraste a cestinha.</p>
+      <p id="heartMessage" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <footer>feito com HTML, carinho e um tantinho de vergonha 💗</footer>
+</div>
+
+<div id="overlay" class="overlay hidden"></div>
+<div id="popup" class="popup hidden" role="dialog" aria-modal="true">
+  <div class="titlebar"><span id="popupTitle">mensagem.exe</span><span class="buttons">_ □ ×</span></div>
+  <div class="content">
+    <div class="emoji" id="popupEmoji">💌</div>
+    <p id="popupText"></p>
+    <button id="popupOk">OK ♡</button>
+  </div>
+</div>
+
+
+
+
+
+<script>
+// ==========================================
+// 1. ELEMENTOS DO SITE
+// ==========================================
+
+const audio = document.getElementById('audio');
+const popup = document.getElementById('popup');
+const overlay = document.getElementById('overlay');
+
+const popupTitle = document.getElementById('popupTitle');
+const popupText = document.getElementById('popupText');
+const popupEmoji = document.getElementById('popupEmoji');
+
+let queue = [];
+let queueIndex = 0;
+
+// ==========================================
+// 2. MENSAGENS DE ABERTURA
+// Edite os textos como quiser!
+// ==========================================
+
+const openingMessages = [
+  {
+    title: 'oi, minha dama.exe',
+    emoji: '💗',
+    text: 'Tá aí ksks Fiz esse cantinho inteiro pensando em você. Talvez seja exagerado, mas é por você, então tá explicado.'
+  },
+  {
+    title: 'um detalhe.exe',
+    emoji: '🌷',
+    text: 'Queria te dar alguma coisa que você pudesse abrir e sentir que eu pensei em você em cada pedacinho.'
+  },
+  {
+    title: 'aviso importante.exe',
+    emoji: '💌',
+    text: 'Você sempre faz todos os meus dias. Espero te lembrar disso muitas e muitas vezes.'
+  }
+];
+
+// ==========================================
+// 3. ABRIR E FECHAR CAIXINHAS
+// ==========================================
+
+function showPopup(title, text, emoji = '💗', onClose = null) {
+  popupTitle.textContent = title;
+  popupText.textContent = text;
+  popupEmoji.textContent = emoji;
+
+  popup.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+
+  const okButton = document.getElementById('popupOk');
+
+  // Substitui o evento anterior para evitar duplicações
+  okButton.onclick = () => {
+    popup.classList.add('hidden');
+    overlay.classList.add('hidden');
+
+    if (onClose) {
+      onClose();
+    }
+  };
+}
+
+// ==========================================
+// 4. SEQUÊNCIA DE MENSAGENS
+// ==========================================
+
+function showNext() {
+  if (queueIndex >= queue.length) {
+    showPopup(
+      'prontinho.exe',
+      'Agora aproveita esse projetinho e não se preocupa que tudo isso foi feito pensando em você. Então será sobre mim ksksks. Eu te amo muitooooooo! 💗',
+      '🐸'
+    );
+    return;
+  }
+
+  const message = queue[queueIndex++];
+
+  showPopup(
+    message.title,
+    message.text,
+    message.emoji,
+    showNext
+  );
+}
+
+document.getElementById('startBtn').addEventListener('click', () => {
+  queue = openingMessages;
+  queueIndex = 0;
+  showNext();
+});
+
+// ==========================================
+// 5. OUTRAS MENSAGENS CLICÁVEIS
+// ==========================================
+
+document.querySelectorAll('.noteBtn').forEach(button => {
+  button.addEventListener('click', () => {
+    showPopup(
+      'um recadinho pra você.exe',
+      button.dataset.note,
+      '💌'
+    );
+  });
+});
+
+// ==========================================
+// 6. SURPRESA FINAL
+// ==========================================
+
+document.getElementById('secretBtn').addEventListener('click', () => {
+  showPopup(
+    'eitchaa.exe',
+    'Se eu pudesse te mostrar o universo através dos meus olhos, entenderia por que nenhuma estrela me impressiona tanto quanto você. Existe algo em ti que faz até os meus pensamentos mais simples se transformarem em poesia. E eu queria ter todas as palavras que já existiram e todas as que ainda serão inventadas, só para tentar explicar a imensidão do que sinto por você. Porque te amar é descobrir, todos os dias, que a vida ainda consegue ser mais bonita do que eu imaginava, e que, entre todas as maravilhas que poderiam existir, foi justamente você quem se tornou a minha favorita 💗',
+    '💙'
+  );
+});
+
+// ==========================================
+ // 7. PLAYLIST
+ // ==========================================
+
+const playlist = [
+  { title: "Almas Gêmeas", src: "musicas/musica1.mp3" },
+  { title: "Luz do Luar", src: "musicas/musica2.mp3" },
+  { title: "Garota do vestido branco", src: "musicas/musica3.mp3" },
+  { title: "Eu quero te impressionar", src: "musicas/musica4.mp3" }
+];
+
+const songSelect = document.getElementById("songSelect");
+
+function changeSong() {
+  const selectedSong = playlist[Number(songSelect.value)];
+  audio.src = selectedSong.src;
+  audio.load();
+}
+
+songSelect.addEventListener("change", changeSong);
+changeSong();
+
+audio.addEventListener("error", () => {
+  const msg = document.getElementById("audioError");
+  if (msg) msg.textContent = "Não consegui abrir esse áudio. Confira se o arquivo existe em musicas/ e se o nome termina em .mp3.";
+  console.warn("Não foi possível carregar o áudio. Confira a pasta musicas e os nomes dos arquivos.");
+});
+
+// ==========================================
+// 8. ARRASTAR JANELAS INDEPENDENTEMENTE
+// Clique e segure a barra de título.
+// Funciona com mouse e toque.
+// ==========================================
+
+let activeWindow = null;
+let offsetX = 0;
+let offsetY = 0;
+let highestZ = 100;
+
+document.querySelectorAll('.window').forEach(win => {
+  const titlebar = win.querySelector('.titlebar');
+
+  if (!titlebar) return;
+
+  titlebar.style.cursor = 'grab';
+  titlebar.style.touchAction = 'none';
+});
+
+document.addEventListener('pointerdown', event => {
+  const titlebar = event.target.closest('.window .titlebar');
+
+  if (!titlebar) return;
+  if (event.button !== 0) return;
+  if (event.target.closest('button')) return;
+
+  const win = titlebar.closest('.window');
+
+  if (!win) return;
+
+  // Impede que outra janela comece a ser arrastada
+  activeWindow = win;
+
+  const rect = win.getBoundingClientRect();
+
+  offsetX = event.clientX - rect.left;
+  offsetY = event.clientY - rect.top;
+
+  // Converte a posição atual para coordenadas da tela
+  // antes de começar o movimento.
+  win.style.position = 'absolute';
+  win.style.left = rect.left + 'px';
+  win.style.top = rect.top + 'px';
+  win.style.right = 'auto';
+  win.style.bottom = 'auto';
+  win.style.margin = '0';
+  win.style.transform = 'none';
+  win.style.zIndex = ++highestZ;
+
+  titlebar.style.cursor = 'grabbing';
+
+  event.preventDefault();
+});
+
+document.addEventListener('pointermove', event => {
+  if (!activeWindow) return;
+
+  activeWindow.style.left =
+    (event.clientX - offsetX) + 'px';
+
+  activeWindow.style.top =
+    (event.clientY - offsetY) + 'px';
+});
+
+function stopDragging() {
+  if (!activeWindow) return;
+
+  const titlebar = activeWindow.querySelector('.titlebar');
+
+  if (titlebar) {
+    titlebar.style.cursor = 'grab';
+  }
+
+  activeWindow = null;
+}
+
+document.addEventListener('pointerup', stopDragging);
+document.addEventListener('pointercancel', stopDragging);
+
+// Botão da janela esquerda: mostra a quarta imagem e sua legenda.
+const updateLeftPhoto = document.getElementById('updateLeftPhoto');
+const leftWindowPhoto = document.getElementById('leftWindowPhoto');
+const leftWindowCaption = document.getElementById('leftWindowCaption');
+
+updateLeftPhoto.addEventListener('click', () => {
+  leftWindowPhoto.src = 'imagens/fih.png';
+  leftWindowPhoto.alt = 'Outra lembrança';
+  leftWindowCaption.textContent = 'Eita...';
+  updateLeftPhoto.textContent = 'Atualizado ♥';
+});
+
+const dinoGame = document.getElementById("dinoGame");
+const dinoCharacter = document.getElementById("dinoCharacter");
+const dinoObstacle = document.getElementById("dinoObstacle");
+const dinoScore = document.getElementById("dinoScore");
+const dinoStart = document.getElementById("dinoStart");
+const dinoRestart = document.getElementById("dinoRestart");
+const dinoGameOver = document.getElementById("dinoGameOver");
+
+let dinoRunning = false;
+let dinoJumping = false;
+let dinoY = 0;
+let dinoVelocity = 0;
+let dinoPoints = 0;
+let dinoFrame;
+let dinoLastTime = 0;
+let dinoObstacles = [];
+let dinoNextSpawn = 0;
+let dinoLastLevel = 0;
+
+function dinoLevel() {
+  return Math.floor(dinoPoints / 7);
+}
+
+function dinoSpeed() {
+  // A velocidade aumenta a cada 7 pontos, até ficar bem desafiadora.
+  return Math.min(4 + dinoLevel() * 0.85, 10);
+}
+
+function dinoSpawnObstacle(x = dinoGame.clientWidth + 30) {
+  const level = dinoLevel();
+  const cactus = document.createElement("div");
+  cactus.className = "dino-obstacle";
+  cactus.textContent = level >= 2 && Math.random() < Math.min(0.25 + level * 0.08, 0.65)
+    ? "🌵🌵"
+    : "🌵";
+  cactus.style.left = x + "px";
+  dinoGame.appendChild(cactus);
+  dinoObstacles.push({ element: cactus, x, counted: false });
+}
+
+function dinoClearObstacles() {
+  dinoObstacles.forEach(obstacle => obstacle.element.remove());
+  dinoObstacles = [];
+  // O obstáculo original fica no HTML; removemos ele também para não duplicar.
+  dinoObstacle.remove();
+}
+
+function dinoJump() {
+  if (!dinoRunning || dinoJumping) return;
+  dinoJumping = true;
+  dinoVelocity = 11;
+}
+
+function dinoStartGame() {
+  cancelAnimationFrame(dinoFrame);
+  dinoClearObstacles();
+
+  dinoRunning = true;
+  dinoJumping = false;
+  dinoY = 0;
+  dinoVelocity = 0;
+  dinoPoints = 0;
+  dinoLastTime = 0;
+  dinoLastLevel = 0;
+  dinoNextSpawn = dinoGame.clientWidth + 30;
+
+  dinoScore.textContent = "Pontos: 0 · Nível: 1";
+  dinoCharacter.style.bottom = "20px";
+  dinoGameOver.hidden = true;
+  dinoStart.textContent = "Recomeçar ♥";
+  dinoSpawnObstacle(dinoGame.clientWidth + 30);
+  dinoNextSpawn = dinoGame.clientWidth + 30;
+
+  dinoGame.focus();
+  dinoFrame = requestAnimationFrame(dinoLoop);
+}
+
+function dinoLoop(time) {
+  if (!dinoRunning) return;
+
+  const delta = dinoLastTime
+    ? Math.min((time - dinoLastTime) / 16.67, 2)
+    : 1;
+  dinoLastTime = time;
+
+  // Pulo e gravidade
+  if (dinoJumping) {
+    dinoY += dinoVelocity * delta;
+    dinoVelocity -= 0.6 * delta;
+    if (dinoY <= 0) {
+      dinoY = 0;
+      dinoVelocity = 0;
+      dinoJumping = false;
+    }
+  }
+  dinoCharacter.style.bottom = (20 + dinoY) + "px";
+
+  const speed = dinoSpeed();
+  const level = dinoLevel();
+
+  // Aviso visual de nível: fica mais rápido a cada 7 pontos.
+  if (level !== dinoLastLevel) {
+    dinoLastLevel = level;
+    dinoScore.textContent = "Pontos: " + dinoPoints + " · Nível: " + (level + 1) + "!";
+  }
+
+  // Move cada cacto e conta pontos quando ele passa pelo jogador.
+  const dinoRect = dinoCharacter.getBoundingClientRect();
+  for (let i = dinoObstacles.length - 1; i >= 0; i--) {
+    const obstacle = dinoObstacles[i];
+    obstacle.x -= speed * delta;
+    obstacle.element.style.left = obstacle.x + "px";
+    const obstacleRect = obstacle.element.getBoundingClientRect();
+
+    const hit =
+      dinoRect.right - 8 > obstacleRect.left + 5 &&
+      dinoRect.left + 8 < obstacleRect.right - 5 &&
+      dinoRect.bottom - 5 > obstacleRect.top + 5;
+
+    if (hit) {
+      dinoRunning = false;
+      dinoGameOver.hidden = false;
+      return;
+    }
+
+    if (!obstacle.counted && obstacleRect.right < dinoRect.left) {
+      obstacle.counted = true;
+      dinoPoints += 1;
+      const currentLevel = dinoLevel();
+      dinoScore.textContent = "Pontos: " + dinoPoints + " · Nível: " + (currentLevel + 1);
+    }
+
+    if (obstacle.x < -70) {
+      obstacle.element.remove();
+      dinoObstacles.splice(i, 1);
+    }
+  }
+
+  // A distância entre os cactos diminui gradualmente; nos níveis maiores,
+  // alguns aparecem em duplas para aumentar o desafio.
+  if (dinoObstacles.length === 0) {
+    dinoNextSpawn = dinoGame.clientWidth + 25;
+  }
+  const rightmostX = dinoObstacles.length
+    ? Math.max(...dinoObstacles.map(obstacle => obstacle.x))
+    : -Infinity;
+  const minGap = Math.max(145, 285 - level * 18);
+  if (rightmostX < dinoGame.clientWidth - minGap) {
+    const clusterChance = Math.min(level * 0.12, 0.55);
+    const cluster = level >= 1 && Math.random() < clusterChance;
+    dinoSpawnObstacle(dinoGame.clientWidth + 20);
+    if (cluster) {
+      // Um segundo cacto vem logo atrás, mas com espaço para permitir o pulo.
+      dinoSpawnObstacle(dinoGame.clientWidth + 78 + Math.random() * 25);
+    }
+  }
+
+  dinoFrame = requestAnimationFrame(dinoLoop);
+}
+
+dinoStart.addEventListener("click", dinoStartGame);
+dinoRestart.addEventListener("click", dinoStartGame);
+dinoGame.addEventListener("click", dinoJump);
+
+document.addEventListener("keydown", function(event) {
+  if (event.code !== "Space" && event.code !== "ArrowUp") return;
+  if (dinoRunning) {
+    event.preventDefault();
+    dinoJump();
+  }
+});
+
+
+
+
+
+
+</script>
+
+
+<div id="meuClippy">
+  <div id="falaClippy" class="balao-clippy">
+    Parece que você está apaixonada! Quer ajuda? 💗
+  </div>
+
+  <img
+    id="imagemClippy"
+    src="imagens/meu_clippy.jpg"
+    alt="Meu Clippy personalizado"
+    draggable="false"
+  >
+</div>
+
+<script>
+// Clippy: inicializado depois do HTML para os elementos existirem.
+(() => {
+  const clippy = document.getElementById("meuClippy");
+  const imagem = document.getElementById("imagemClippy");
+  const fala = document.getElementById("falaClippy");
+  if (!clippy || !imagem || !fala) {
+    console.error("Clippy: não encontrei um dos elementos HTML necessários.");
+    return;
+  }
+
+  const falas = [
+    "Ei, psiu!",
+    "gostosa",
+    "CARALHO, tá difícil concentrar com esses saus peitão",
+    "Parece que você está me deixando apaixonado 💗",
+    "ALERTA: excesso de fofura detectado!",
+    "Erro 404: não encontrei alguém mais linda que ela.",
+    "Quer abrir o arquivo: amor.exe?",
+    "Detectei níveis absurdos de paixão!",
+    "Posso ajudar com mais um textinho? KSJSKS",
+    "EU TE AMO MUUUUUUUUUUITOOOOOOOO",
+    "aceita ouvir lendo"
+  ];
+
+  let dragging = false;
+  let moved = false;
+  let startX = 0, startY = 0, startLeft = 0, startTop = 0;
+  let lastMessage = fala.textContent.trim();
+
+  imagem.style.touchAction = "none";
+  imagem.style.userSelect = "none";
+  imagem.style.cursor = "grab";
+
+  imagem.addEventListener("pointerdown", (event) => {
+    if (event.button !== undefined && event.button !== 0) return;
+    event.preventDefault();
+    const rect = clippy.getBoundingClientRect();
+    startLeft = rect.left;
+    startTop = rect.top;
+    startX = event.clientX;
+    startY = event.clientY;
+    clippy.style.position = "fixed";
+    clippy.style.left = startLeft + "px";
+    clippy.style.top = startTop + "px";
+    clippy.style.right = "auto";
+    clippy.style.bottom = "auto";
+    clippy.style.margin = "0";
+    clippy.style.zIndex = "99999";
+    dragging = true;
+    moved = false;
+    imagem.style.cursor = "grabbing";
+    try { imagem.setPointerCapture(event.pointerId); } catch (_) {}
+  });
+
+  imagem.addEventListener("pointermove", (event) => {
+    if (!dragging) return;
+    const dx = event.clientX - startX;
+    const dy = event.clientY - startY;
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+    if (!moved) return;
+    const maxLeft = Math.max(0, window.innerWidth - clippy.offsetWidth);
+    const maxTop = Math.max(0, window.innerHeight - clippy.offsetHeight);
+    clippy.style.left = Math.max(0, Math.min(startLeft + dx, maxLeft)) + "px";
+    clippy.style.top = Math.max(0, Math.min(startTop + dy, maxTop)) + "px";
+  });
+
+  function stopDragging() {
+    dragging = false;
+    imagem.style.cursor = "grab";
+  }
+  imagem.addEventListener("pointerup", stopDragging);
+  imagem.addEventListener("pointercancel", stopDragging);
+  imagem.addEventListener("lostpointercapture", stopDragging);
+
+  imagem.addEventListener("click", () => {
+    if (moved) { moved = false; return; }
+    let next;
+    do { next = falas[Math.floor(Math.random() * falas.length)]; }
+    while (falas.length > 1 && next === lastMessage);
+    lastMessage = next;
+    fala.textContent = next;
+  });
+})();
+
+
+// =====================================
+// JOGO 2 — ACERTE O ABESTADO
+// =====================================
+const moleHoles = [...document.querySelectorAll('.mole-hole')];
+const moleScoreEl = document.getElementById('moleScore');
+const moleTimeEl = document.getElementById('moleTime');
+const moleMessage = document.getElementById('moleMessage');
+const moleStart = document.getElementById('moleStart');
+let moleScore = 0, moleSeconds = 20, moleActive = false, moleTarget = -1;
+let moleTimer = null, moleMoveTimer = null;
+function moleMove() {
+  moleHoles.forEach(hole => { hole.innerHTML = '🕳️'; });
+  let next;
+  do { next = Math.floor(Math.random() * moleHoles.length); } while (next === moleTarget && moleHoles.length > 1);
+  moleTarget = next;
+  moleHoles[moleTarget].innerHTML = '<img src="imagens/minha_foto.jpg" alt="Minha foto">';
+}
+function moleEnd() {
+  moleActive = false; clearInterval(moleTimer); clearInterval(moleMoveTimer);
+  moleHoles.forEach(hole => hole.textContent = '🕳️');
+  moleMessage.textContent = `Acabou! Você pegou ${moleScore} abestado(s)! KKKKK 💗`;
+  moleStart.textContent = 'Jogar de novo ♥';
+}
+function moleBegin() {
+  clearInterval(moleTimer); clearInterval(moleMoveTimer);
+  moleScore = 0; moleSeconds = 20; moleTarget = -1; moleActive = true;
+  moleScoreEl.textContent = 'Pontos: 0'; moleTimeEl.textContent = 'Tempo: 20 segundos';
+  moleMessage.textContent = 'PEGA O BICHO!'; moleStart.textContent = 'Recomeçar ♥'; moleMove();
+  moleMoveTimer = setInterval(moleMove, 700);
+  moleTimer = setInterval(() => { moleSeconds--; moleTimeEl.textContent = `Tempo: ${moleSeconds} segundos`; if (moleSeconds <= 0) moleEnd(); }, 1000);
+}
+moleHoles.forEach((hole, index) => hole.addEventListener('click', () => {
+  if (!moleActive) return;
+  if (index === moleTarget) {
+    moleScore++; moleScoreEl.textContent = `Pontos: ${moleScore}`;
+    const lines = ['PEGOU KKKKK!', 'O ABESTADO FOI CAPTURADO!', 'Mais uma vítima 😭', 'Misericórdia, que mira!', 'Esse não escapa!'];
+    moleMessage.textContent = lines[Math.floor(Math.random() * lines.length)]; moleMove();
+  } else moleMessage.textContent = 'ERROU KKKKK, ELE FUGIU!';
+}));
+moleStart.addEventListener('click', moleBegin);
+
+// =====================================
+// JOGO 4 — CHUVA DE CORAÇÕES
+// =====================================
+const heartGame = document.getElementById('heartGame');
+const heartBasket = document.getElementById('heartBasket');
+const heartScoreEl = document.getElementById('heartScore');
+const heartTimeEl = document.getElementById('heartTime');
+const heartGameOver = document.getElementById('heartGameOver');
+const heartFinal = document.getElementById('heartFinal');
+const heartMessage = document.getElementById('heartMessage');
+const heartStart = document.getElementById('heartStart');
+const heartLeft = document.getElementById('heartLeft');
+const heartRight = document.getElementById('heartRight');
+let heartActive = false, heartScore = 0, heartSeconds = 30, heartX = 50;
+let heartItems = [], heartTimer = null, heartFrame = null, heartLastTime = 0, heartSpawnElapsed = 0;
+function heartPosition() { heartBasket.style.left = heartX + '%'; }
+function heartMove(direction) { if (!heartActive) return; heartX = Math.max(7, Math.min(93, heartX + direction * 7)); heartPosition(); }
+heartLeft.addEventListener('click', () => heartMove(-1));
+heartRight.addEventListener('click', () => heartMove(1));
+function heartClearItems() { heartItems.forEach(item => item.element.remove()); heartItems = []; }
+function heartFinish() {
+  heartActive = false; clearInterval(heartTimer); cancelAnimationFrame(heartFrame); heartClearItems();
+  heartGameOver.hidden = false;
+  heartFinal.textContent = `Você pegou ${heartScore} Ailsus! UHUUUUUUUU`;
+  heartStart.textContent = 'Jogar de novo ♥'; heartMessage.textContent = 'Fim de jogo!';
+}
+function heartSpawn() {
+  const element = document.createElement('img'); element.className = 'heart-falling';
+  element.src = 'imagens/foto_casal.png';
+  element.alt = 'Foto do casal';
+  const size = 55;
+  const x = Math.random() * Math.max(1, heartGame.clientWidth - size);
+  element.style.left = x + 'px'; element.style.top = '-60px'; heartGame.appendChild(element);
+  heartItems.push({element, x, y:-60, speed:1.5 + Math.random() * 1.4});
+}
+function heartLoop(time) {
+  if (!heartActive) return;
+  const delta = heartLastTime ? Math.min((time - heartLastTime) / 16.67, 2) : 1;
+  heartLastTime = time; heartSpawnElapsed += delta;
+  if (heartSpawnElapsed > 32) { heartSpawn(); heartSpawnElapsed = 0; }
+  const basketLeft = heartX / 100 * heartGame.clientWidth - 24;
+  const basketRight = basketLeft + 48, catchLine = heartGame.clientHeight - 48;
+  for (let i = heartItems.length - 1; i >= 0; i--) {
+    const item = heartItems[i]; item.y += item.speed * delta; item.element.style.top = item.y + 'px';
+    if (item.y + 55 >= catchLine && item.y <= catchLine + 25 && item.x + 55 >= basketLeft && item.x <= basketRight) {
+      item.element.remove(); heartItems.splice(i, 1); heartScore++; heartScoreEl.textContent = `Corações: ${heartScore}`; continue;
+    }
+    if (item.y > heartGame.clientHeight) { item.element.remove(); heartItems.splice(i, 1); }
+  }
+  heartFrame = requestAnimationFrame(heartLoop);
+}
+function heartBegin() {
+  cancelAnimationFrame(heartFrame); clearInterval(heartTimer); heartClearItems();
+  heartActive = true; heartScore = 0; heartSeconds = 30; heartX = 50; heartLastTime = 0; heartSpawnElapsed = 0;
+  heartScoreEl.textContent = 'Corações: 0'; heartTimeEl.textContent = 'Tempo: 30 segundos';
+  heartMessage.textContent = 'VAI, PEGA ESSE PORRA'; heartGameOver.hidden = true; heartStart.textContent = 'Recomeçar ♥'; heartPosition();
+  heartTimer = setInterval(() => { heartSeconds--; heartTimeEl.textContent = `Tempo: ${heartSeconds} segundos`; if (heartSeconds <= 0) heartFinish(); }, 1000);
+  heartFrame = requestAnimationFrame(heartLoop);
+}
+heartStart.addEventListener('click', heartBegin);
+document.getElementById('heartRestart').addEventListener('click', heartBegin);
+document.addEventListener('keydown', event => {
+  if (!heartActive) return;
+  if (event.key === 'ArrowLeft') { event.preventDefault(); heartMove(-1); }
+  else if (event.key === 'ArrowRight') { event.preventDefault(); heartMove(1); }
+});
+let heartDragging = false;
+heartGame.addEventListener('pointerdown', event => {
+  if (!heartActive || event.target.closest('button')) return;
+  heartDragging = true;
+  try { heartGame.setPointerCapture(event.pointerId); } catch (_) {}
+  heartDragTo(event);
+});
+heartGame.addEventListener('pointermove', event => { if (heartDragging) heartDragTo(event); });
+function heartDragTo(event) {
+  const rect = heartGame.getBoundingClientRect();
+  heartX = Math.max(7, Math.min(93, ((event.clientX - rect.left) / rect.width) * 100)); heartPosition();
+}
+function heartStopDragging() { heartDragging = false; }
+heartGame.addEventListener('pointerup', heartStopDragging);
+heartGame.addEventListener('pointercancel', heartStopDragging);
+
+</script>
+
+</body>
+</html>
